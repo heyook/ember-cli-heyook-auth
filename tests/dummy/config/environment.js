@@ -16,7 +16,28 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    "simple-auth": {
+      authorizer: 'authorizer:devise',
+      crossOriginWhitelist: ['*'],
+      store: 'simple-auth-session-store:cookie'
+    },
+
+    "simple-auth-devise": {
+      tokenAttributeName: "auth_token",
+      identificationAttributeName: "email"
+    },
+
+    "simple-auth-session-store": {
+      cookieName: "lidamo_auth_session"
+    },
+
+    HeyookAuth: {
+      resourceName: "user",
+      currentResourceName: 'currentUser'
     }
+
   };
 
   if (environment === 'development') {
@@ -37,6 +58,9 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV['simple-auth-devise'].serverTokenEndpoint = "api/users/sign_in";
+    ENV['simple-auth'].store = 'simple-auth-session-store:ephemeral';
   }
 
   if (environment === 'production') {

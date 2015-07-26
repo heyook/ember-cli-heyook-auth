@@ -1,0 +1,1 @@
+export { default } from 'ember-cli-heyook-auth/models/credential';

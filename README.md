@@ -1,25 +1,65 @@
 # Ember-cli-heyook-auth
 
-This README outlines the details of collaborating on this Ember addon.
+Auth specific to heyook projects.
 
-## Installation
+### Set environment
+```javascript
+var ENV = {
+  //...
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+  "simple-auth": {
+    authorizer: 'authorizer:devise',
+    crossOriginWhitelist: ['*'],
+    store: 'simple-auth-session-store:cookie'
+  },
 
-## Running
+  "simple-auth-devise": {
+    tokenAttributeName: "auth_token",
+    identificationAttributeName: "email"
+  },
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+  "simple-auth-session-store": {
+    cookieName: "lidamo_auth_session"
+  },
 
-## Running Tests
+  HeyookAuth: {
+    resourceName: "user",
+    currentResourceName: 'currentUser'
+  }
 
-* `ember test`
-* `ember test --server`
+  //...
+};
 
-## Building
+if (environment === 'test') {
+  //...
+  ENV['simple-auth-devise'].serverTokenEndpoint = "api/users/sign_in";
+  ENV['simple-auth'].store = 'simple-auth-session-store:ephemeral';
+}
+```
 
-* `ember build`
+### create resource
+```javascript
+import DS from 'ember-data';
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+export default DS.Model.extend({
+  email: DS.attr('string'),
+  auth_token: DS.attr('string')
+});
+```
+
+### create login route
+```javascript
+import Ember from 'ember';
+import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
+import LoginRouteMixin from 'ember-cli-heyook-auth/mixins/login-route-mixin';
+
+export default Ember.Route.extend(ApplicationRouteMixin, LoginRouteMixin);
+```
+
+### create login template
+```handlebar
+{{login-form
+  model=model
+  onSubmit='submit'
+  onRemember='updateRememberMe'}}
+```
