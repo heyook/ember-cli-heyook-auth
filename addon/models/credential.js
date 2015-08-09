@@ -4,7 +4,7 @@ import EmberValidations from 'ember-validations';
 
 var Credential;
 
-Credential = DS.Model.extend(EmberValidations.Mixin, {
+Credential = DS.Model.extend(EmberValidations, {
   identification: DS.attr('string'),
   password: DS.attr('string'),
   isntValid: Ember.computed.not('isValid')
@@ -40,5 +40,5 @@ Credential.reopen({
       }
     }
   }
-  
+
 });
