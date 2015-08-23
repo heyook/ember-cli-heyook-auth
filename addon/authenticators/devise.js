@@ -32,7 +32,7 @@ export default Devise.extend({
       data: data,
       dataType: 'json',
       beforeSend: function(xhr/*, settings*/) {
-        xhr.setRequestHeader('Accept', 'application/vnd.heyook.v1');
+        xhr.setRequestHeader('Accept', 'application/vnd.lida.v1');
         return xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
       }
     });

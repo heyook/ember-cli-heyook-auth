@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-heyook-auth",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Heyook wapper for simple auth.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -39,7 +39,7 @@
     "ember-cli-simple-auth-cookie-store": "0.8.0",
     "ember-cli-simple-auth-devise": "0.8.0",
     "ember-cli-simple-auth-testing": "0.8.0",
-    "ember-validations": "2.0.0-alpha.3"
+    "ember-validations": "2.0.0-alpha.4"
   },
   "keywords": [
     "ember-addon"
