@@ -2,6 +2,13 @@ import Ember from "ember";
 import Session from "simple-auth/session";
 
 export function initialize(container/*, application */) {
+  var config = container.lookupFactory('config:environment');
+  var resourceName = (config.HeyookAuth || {}).resourceName;
+  var currentResourceName = (config.HeyookAuth || {}).currentResourceName;
+  var requestHeaders = (config.HeyookAuth || {}).requestHeaders;
+
+  container.lookup('service:heyookAuth').set('requestHeaders', requestHeaders);
+
   Session.reopen({
     preUserId: undefined,
 
@@ -14,10 +21,6 @@ export function initialize(container/*, application */) {
         return;
       }
       this.preUserId = id;
-
-      var config = container.lookupFactory('config:environment');
-      var resourceName = (config.HeyookAuth || {}).resourceName;
-      var currentResourceName = (config.HeyookAuth || {}).currentResourceName;
 
       if (!Ember.isEmpty(id)) {
         container.lookup("store:main").find(resourceName, id).then(function(user) {

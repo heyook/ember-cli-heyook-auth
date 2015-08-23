@@ -35,7 +35,10 @@ module.exports = function(environment) {
 
     HeyookAuth: {
       resourceName: "user",
-      currentResourceName: 'currentUser'
+      currentResourceName: 'currentUser',
+      requestHeaders: {
+        'Accept': 'application/vnd.heyook.v1'
+      }
     }
 
   };
