@@ -15,6 +15,9 @@
   {{error}}
 </p>
 <div class="form-actions">
-  <input id="remember-me" type="checkbox" name="remember_me" value=rememberMe checked> Remember me
+  {{#if onRemember}}
+    <input id="remember-me" type="checkbox" name="remember_me" value=rememberMe checked>
+    <span>Remember me</span>
+  {{/if}}
   <input {{action 'submit'}} disabled={{model.isntValid}} type="submit" class="btn btn-primary" value="Login">
 </div>
