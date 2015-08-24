@@ -6,6 +6,9 @@ export default Ember.Component.extend({
   classNames: ['login'],
   tagName: 'form',
 
+  rememberMeLabel: "Remember me",
+  btnLabel: "login",
+
   didInsertElement: function() {
     this._super();
     Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
