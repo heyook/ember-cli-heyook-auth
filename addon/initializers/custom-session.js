@@ -1,6 +1,7 @@
 import Ember from "ember";
 import Session from "simple-auth/session";
 
+// TODO: need to update to instance-initializer to access container
 export function initialize(container/*, application */) {
   var config = container.lookupFactory('config:environment');
   var resourceName = (config.HeyookAuth || {}).resourceName;
@@ -23,7 +24,7 @@ export function initialize(container/*, application */) {
       this.preUserId = id;
 
       if (!Ember.isEmpty(id)) {
-        container.lookup("store:main").find(resourceName, id).then(function(user) {
+        container.lookup("service:store").find(resourceName, id).then(function(user) {
           self.set(currentResourceName, user);
         });
       }
