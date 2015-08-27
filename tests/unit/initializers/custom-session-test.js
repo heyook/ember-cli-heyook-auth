@@ -14,12 +14,8 @@ module('Unit | Initializer | custom session', {
   }
 });
 
-// Replace this with your real tests.
+// TODO: need to access factory in unit test
 test('it works', function(assert) {
   assert.expect(0);
   // initialize(registry, application);
-
-  // you would normally confirm the results of the initializer here
-  // assert.ok(true);
-  // TODO: test this!!
 });
