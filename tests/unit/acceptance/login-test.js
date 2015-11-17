@@ -15,13 +15,13 @@ module('Integration | Acceptance | Login', {
     };
 
     server = new Pretender(function() {
-      this.post('api/users/sign_in', function(){
+      this.post('users/sign_in', function(){
         return [201,
           {"Content-Type": "application/json"},
           JSON.stringify({user: authUser})
         ];
       });
-      this.get('api/users/1', function(){
+      this.get('users/1', function(){
         return [200,
           {"Content-Type": "application/json"},
           JSON.stringify({user: authUser})
@@ -49,6 +49,6 @@ test('signin', function(assert) {
   });
 
   andThen(function() {
-    assert.equal(currentURL(), '/', "Go to dashboard overview");
+    assert.equal(currentURL(), '/', "Go to after login route");
   });
 });

@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
 
   afterLoginRoute: "/",
 
+  session: Ember.inject.service('session'),
+
   rememberMeChanged: Ember.observer('rememberMe', function() {
     return this.get('session.store').cookieExpirationTime = this.get('rememberMe') ? 14 * 24 * 60 * 60 : null;
   }),
@@ -28,7 +30,9 @@ export default Ember.Controller.extend({
           credential.clearProperties();
           _this.transitionToRoute(_this.get('afterLoginRoute'));
         }, function(reason) {
-          _this.set("error", reason.error || reason.message);
+          if(reason) {
+            _this.set("error", reason.error || reason.message);
+          }
         });
       }
     }

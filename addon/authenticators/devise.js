@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Devise from 'simple-auth-devise/authenticators/devise';
+import Devise from 'ember-simple-auth/authenticators/devise';
 
 export default Devise.extend({
 
@@ -39,7 +39,7 @@ export default Devise.extend({
       data: data,
       dataType: 'json',
       beforeSend: function(xhr/*, settings*/) {
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');    
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         var headers = _this.get('heyookAuth').requestHeaders;
         Object.keys(headers).forEach(function(key) {
           xhr.setRequestHeader(key, headers[key]);
