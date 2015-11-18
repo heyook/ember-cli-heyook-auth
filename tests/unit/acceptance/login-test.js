@@ -15,7 +15,7 @@ module('Integration | Acceptance | Login', {
     };
 
     server = new Pretender(function() {
-      this.post('users/sign_in', function(){
+      this.post('api/users/sign_in', function(){
         return [201,
           {"Content-Type": "application/json"},
           JSON.stringify({user: authUser})

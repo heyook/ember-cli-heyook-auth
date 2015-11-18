@@ -26,6 +26,7 @@ module.exports = function(environment) {
     HeyookAuth: {
       resourceName: "user",
       currentResourceName: 'currentUser',
+      serverTokenEndpoint: "/api/users/sign_in",
       requestHeaders: {
         'Accept': 'application/vnd.heyook.v1'
       }

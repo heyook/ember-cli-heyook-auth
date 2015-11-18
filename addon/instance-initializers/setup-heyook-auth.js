@@ -12,11 +12,21 @@ function lookupFactory(app, name) {
 export function initialize(instance) {
 
   let config = lookupFactory(instance, 'config:environment');
-  let resourceName = (config.HeyookAuth || {}).resourceName;
-  let currentResourceName = (config.HeyookAuth || {}).currentResourceName;
-  let requestHeaders = (config.HeyookAuth || {}).requestHeaders;
+  let heyookAuthConfig = config.HeyookAuth || {};
 
-  instance.lookup('service:heyookAuth').set('requestHeaders', requestHeaders);
+  let resourceName = heyookAuthConfig.resourceName;
+  let currentResourceName = heyookAuthConfig.currentResourceName;
+  let requestHeaders = heyookAuthConfig.requestHeaders;
+  let serverTokenEndpoint = heyookAuthConfig.serverTokenEndpoint;
+
+  // Set HeyookAuth service object using environment config.
+  let heyookAuthService = instance.lookup('service:heyookAuth');
+  if(requestHeaders) {
+    heyookAuthService.set('requestHeaders', requestHeaders);
+  }
+  if(serverTokenEndpoint){
+    heyookAuthService.set('serverTokenEndpoint', serverTokenEndpoint);
+  }
 
   Session.reopen({
     preUserId: undefined,
