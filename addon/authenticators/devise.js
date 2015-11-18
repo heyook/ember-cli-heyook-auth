@@ -32,7 +32,7 @@ export default Devise.extend({
   },
 
   makeRequest: function(data/*, resolve, reject*/) {
-    let url   = this.get('heyookAuth').serverTokenEndpoint || this.serverTokenEndpoint;
+    const url = this.get('heyookAuth').serverTokenEndpoint || this.get('serverTokenEndpoint');
     let _this = this;
     return Ember.$.ajax({
       url: url,
