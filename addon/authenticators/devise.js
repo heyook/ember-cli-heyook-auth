@@ -64,7 +64,12 @@ export default Devise.extend({
   */
   restore(data) {
     const resourceName = this.get('heyookAuth').resourceName || this.get('resourceName');
-    const userData = data[resourceName];
+
+    let userData = data;
+    if (resourceName in data){
+      userData = data[resourceName];
+    }
+
     const { tokenAttributeName, identificationAttributeName } = this.getProperties('tokenAttributeName', 'identificationAttributeName');
     const tokenAttribute = userData[tokenAttributeName];
     const identificationAttribute = userData[identificationAttributeName];
