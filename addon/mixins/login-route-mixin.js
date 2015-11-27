@@ -7,11 +7,11 @@ export default Ember.Mixin.create({
   session: service('session'),
 
   beforeModel: function() {
-    if (this.get('session.isAuthenticated')) {
-      this.transitionTo('/');
-    } else {
-      return this._super(...arguments);
-    }
+    // if (this.get('session.isAuthenticated')) {
+    //   this.transitionTo('/');
+    // } else {
+    //   return this._super(...arguments);
+    // }
   },
 
   model: function(/*params*/) {
