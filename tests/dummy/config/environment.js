@@ -18,24 +18,15 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    "simple-auth": {
-      authorizer: 'authorizer:devise',
+    "ember-simple-auth": {
       crossOriginWhitelist: ['*'],
       store: 'simple-auth-session-store:cookie'
-    },
-
-    "simple-auth-devise": {
-      tokenAttributeName: "auth_token",
-      identificationAttributeName: "email"
-    },
-
-    "simple-auth-session-store": {
-      cookieName: "lidamo_auth_session"
     },
 
     HeyookAuth: {
       resourceName: "user",
       currentResourceName: 'currentUser',
+      serverTokenEndpoint: "/api/users/sign_in",
       requestHeaders: {
         'Accept': 'application/vnd.heyook.v1'
       }
@@ -61,8 +52,7 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
 
-    ENV['simple-auth-devise'].serverTokenEndpoint = "api/users/sign_in";
-    ENV['simple-auth'].store = 'simple-auth-session-store:ephemeral';
+    ENV['ember-simple-auth'].store = 'simple-auth-session-store:ephemeral';
   }
 
   if (environment === 'production') {

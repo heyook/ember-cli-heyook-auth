@@ -7,4 +7,7 @@ export default Parent.extend(Ember.Evented, {
   // @public
   requestHeaders: null,
 
+  // @public
+  serverTokenEndpoint: null
+
 });

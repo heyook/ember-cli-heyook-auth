@@ -14,6 +14,14 @@ module('Integration | Acceptance | Login', {
       auth_token: "abc"
     };
 
+    var user = {
+      data: {
+        type: "users",
+        id: 1,
+        attributes: authUser
+      }
+    };
+
     server = new Pretender(function() {
       this.post('api/users/sign_in', function(){
         return [201,
@@ -21,10 +29,10 @@ module('Integration | Acceptance | Login', {
           JSON.stringify({user: authUser})
         ];
       });
-      this.get('api/users/1', function(){
+      this.get('users/1', function(){
         return [200,
           {"Content-Type": "application/json"},
-          JSON.stringify({user: authUser})
+          JSON.stringify(user)
         ];
       });
     });
@@ -49,6 +57,6 @@ test('signin', function(assert) {
   });
 
   andThen(function() {
-    assert.equal(currentURL(), '/', "Go to dashboard overview");
+    assert.equal(currentURL(), '/', "Go to after login route");
   });
 });

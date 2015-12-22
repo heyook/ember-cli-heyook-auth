@@ -7,34 +7,14 @@ Auth specific to heyook projects.
 var ENV = {
   //...
 
-  "simple-auth": {
-    authorizer: 'authorizer:devise',
-    crossOriginWhitelist: ['*'],
-    store: 'simple-auth-session-store:cookie'
-  },
-
-  "simple-auth-devise": {
-    tokenAttributeName: "auth_token",
-    identificationAttributeName: "email"
-  },
-
-  "simple-auth-session-store": {
-    cookieName: "lidamo_auth_session"
-  },
-
   HeyookAuth: {
     resourceName: "user",
-    currentResourceName: 'currentUser'
+    currentResourceName: 'currentUser',
+    serverTokenEndpoint: 'api/users/sign_in'
   }
 
   //...
 };
-
-if (environment === 'test') {
-  //...
-  ENV['simple-auth-devise'].serverTokenEndpoint = "api/users/sign_in";
-  ENV['simple-auth'].store = 'simple-auth-session-store:ephemeral';
-}
 ```
 
 ### create resource
@@ -50,7 +30,7 @@ export default DS.Model.extend({
 ### create login route
 ```javascript
 import Ember from 'ember';
-import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import LoginRouteMixin from 'ember-cli-heyook-auth/mixins/login-route-mixin';
 
 export default Ember.Route.extend(ApplicationRouteMixin, LoginRouteMixin);
@@ -90,7 +70,7 @@ export default ApplicationController;
 ### create simple auth authenticated route
 ```Javascript
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin);
 ```
