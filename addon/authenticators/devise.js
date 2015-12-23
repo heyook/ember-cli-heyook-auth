@@ -101,9 +101,11 @@ export default Devise.extend({
       beforeSend: function(xhr/*, settings*/) {
         xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         var headers = _this.get('heyookAuth').requestHeaders;
-        Object.keys(headers).forEach(function(key) {
-          xhr.setRequestHeader(key, headers[key]);
-        });
+        if (!isEmpty(headers)) {
+          Object.keys(headers).forEach(function(key) {
+            xhr.setRequestHeader(key, headers[key]);
+          });
+        }
       }
     });
   }
