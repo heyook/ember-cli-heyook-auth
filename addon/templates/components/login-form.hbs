@@ -1,15 +1,26 @@
-<div class='form-group'>
+<div class='form-group label-floating'>
+  <label class='control-label' for='login-email'>Email</label>
   {{input value=model.identification
     class='form-control'
-    placeholder="Email Address"
-    id='email'}}
+    type='email'
+    id='login-email'}}
+  <p class="help-block">
+    {{#each model.errors.identification as |error|}}
+      <span>{{error}} </span>
+    {{/each}}
+  </p>
 </div>
-<div class='form-group'>
+<div class='form-group label-floating'>
+  <label class='control-label' for='login-password'>Password</label>
   {{input value=model.password
     class='form-control'
     type='password'
-    placeholder="Password"
-    id='password'}}
+    id='login-password'}}
+  <p class="help-block">
+    {{#each model.errors.password as |error|}}
+      <span>{{error}} </span>
+    {{/each}}
+  </p>
 </div>
 <p class="error">
   {{error}}
@@ -19,5 +30,5 @@
     <input id="remember-me" type="checkbox" name="remember_me" value=rememberMe checked>
     <span>{{rememberMeLabel}}</span>
   {{/if}}
-  <input {{action 'submit'}} disabled={{model.isntValid}} type="submit" class="btn btn-primary" value={{btnLabel}}>
+  <input {{action 'submit'}} disabled={{model.isntValid}} type="submit" class="btn btn-primary btn-raised btn-block" value={{btnLabel}}>
 </div>
