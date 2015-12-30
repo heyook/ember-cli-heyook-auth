@@ -38,11 +38,9 @@ export default Devise.extend({
     if (!isEmpty(userData)) {
       const tokenAttributeName = this.get('tokenAttributeName');
       const userToken          = userData[tokenAttributeName];
-      const userIdentification = userData.id;
 
-      if (!isEmpty(userToken) && !isEmpty(userIdentification)) {
-        const authData = `${tokenAttributeName}=${userIdentification}.${userToken}`;
-        block('Authorization', `Token ${authData}`);
+      if (!isEmpty(userToken)) {
+        block('Authorization', `Bearer ${userToken}`);
       }
     }
   }

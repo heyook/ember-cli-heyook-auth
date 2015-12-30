@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
           _this.transitionToRoute(_this.get('afterLoginRoute'));
         }, function(reason) {
           if(reason) {
-            _this.set("error", reason.error || reason.message);
+            _this.set("error", reason.error || reason.message || reason.errors);
           }
         });
       }
