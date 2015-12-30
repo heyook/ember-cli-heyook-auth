@@ -1,6 +1,4 @@
-# Ember-cli-heyook-auth
-
-Auth specific to heyook projects.
+# Authentication for Ember projects 
 
 ### Set environment
 ```javascript
