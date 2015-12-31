@@ -11,7 +11,7 @@ module('Integration | Acceptance | Login', {
     var authUser = {
       id: 1,
       email: "idea@heyook.com",
-      auth_token: "abc"
+      token: "abc"
     };
 
     var user = {

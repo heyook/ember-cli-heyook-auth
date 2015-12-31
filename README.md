@@ -9,7 +9,6 @@ var ENV = {
 
   HeyookAuth: {
     resourceName: "user",
-    currentResourceName: 'currentUser',
     serverTokenEndpoint: 'api/users/sign_in'
   }
 
@@ -23,7 +22,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   email: DS.attr('string'),
-  auth_token: DS.attr('string')
+  token: DS.attr('string')
 });
 ```
 
@@ -53,18 +52,9 @@ actions:
 ```handlebar
 {{login-form
   model=model
+  errors=errors
   onSubmit='submit'
   onRemember='updateRememberMe'}}
-```
-
-### access current user in controller
-```javascript
-import Ember from 'ember';
-
-ApplicationController = Ember.Controller.extend({
-  currentAdmin:    Em.computed.alias "session.currentAdmin"
-});
-export default ApplicationController;
 ```
 
 ### create simple auth authenticated route
