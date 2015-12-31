@@ -1,16 +1,16 @@
-<div class='form-group label-floating'>
+<div class='form-group label-floating is-empty'>
   <label class='control-label' for='login-email'>Email</label>
   {{input value=model.identification
     class='form-control'
     type='email'
     id='login-email'}}
-  <p class="help-block">
+  <p class="help-block errors">
     {{#each model.errors.identification as |error|}}
-      <span>{{error}} </span>
+      <span>{{error}}<br></span>
     {{/each}}
   </p>
 </div>
-<div class='form-group label-floating'>
+<div class='form-group label-floating is-empty'>
   <label class='control-label' for='login-password'>Password</label>
   {{input value=model.password
     class='form-control'
@@ -18,7 +18,7 @@
     id='login-password'}}
   <p class="help-block errors">
     {{#each model.errors.password as |error|}}
-      <span>{{error}} <i class='sep'>|</i></span>
+      <span>{{error}}<br></span>
     {{/each}}
   </p>
 </div>
