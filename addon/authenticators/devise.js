@@ -30,13 +30,15 @@ export default Devise.extend({
   authenticate: function(credentials) {
     var _this;
     _this = this;
+    const resourceName = this.get('heyookAuth').resourceName || this.get('resourceName');
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var data;
       data = {};
-      data[_this.resourceName] = {
+      data[resourceName] = {
         password: credentials.password
       };
-      data[_this.resourceName][_this.identificationAttributeName] = credentials.identification;
+      data[resourceName][_this.identificationAttributeName] = credentials.identification;
       data = JSON.stringify(data);
       return _this.makeRequest(data).then((function(response) {
         return Ember.run(function() {
