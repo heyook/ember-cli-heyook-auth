@@ -19,15 +19,12 @@ export default Ember.Controller.extend({
       this.set('rememberMe', shouldRemember);
     },
 
-    submit: function(credential) {
-      var authenticator, data;
+    submit: function(data, callback) {
+      var authenticator;
       if (!this.get('session.isAuthenticated')) {
-        authenticator = this.get("authenticator");
-        data          = credential.getProperties('identification', 'password');
-
         var _this = this;
-        this.get('session').authenticate(authenticator, data).then(function() {
-          credential.clearProperties();
+        this.get('session').authenticate(this.get("authenticator"), data).then(function() {
+          callback();
           _this.transitionToRoute(_this.get('afterLoginRoute'));
         }, function(reason) {
           if(reason) {

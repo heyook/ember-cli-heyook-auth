@@ -30,9 +30,8 @@ export default DS.Model.extend({
 ```javascript
 import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-import LoginRouteMixin from 'ember-cli-heyook-auth/mixins/login-route-mixin';
 
-export default Ember.Route.extend(ApplicationRouteMixin, LoginRouteMixin);
+export default Ember.Route.extend(ApplicationRouteMixin);
 ```
 
 in route, you can do
@@ -51,7 +50,6 @@ actions:
 ### create login template
 ```handlebar
 {{login-form
-  model=model
   errors=errors
   onSubmit='submit'
   onRemember='updateRememberMe'}}

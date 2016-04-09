@@ -1,13 +1,29 @@
 import Ember from 'ember';
+import EmberValidations from 'ember-validations';
 import layout from '../templates/components/login-form';
 
-export default Ember.Component.extend({
+const { computed: { not }  } = Ember;
+
+export default Ember.Component.extend(EmberValidations, {
   layout: layout,
   classNames: ['login'],
   tagName: 'form',
 
   rememberMeLabel: "Remember me",
   btnLabel: "login",
+
+  model: {
+    identification: "",
+    password: ""
+  },
+
+  isntValid: not('isValid'),
+
+  clearProperties: function() {
+    this.eachAttribute( (propName) => {
+      this.set(propName, undefined);
+    });
+  },
 
   didInsertElement: function() {
     this._super();
@@ -23,7 +39,32 @@ export default Ember.Component.extend({
 
   actions: {
     submit: function() {
-      this.sendAction('onSubmit', this.get('model'));
+      this.sendAction('onSubmit', this.get('model'), () => {
+        this.set('model', {
+          identification: "",
+          password: ""
+        });
+      });
+    }
+  },
+
+  validations: {
+    'model.identification': {
+      presence: true,
+      length: {
+        minimum: 3
+      },
+      format: {
+        "with": /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+        allowBlank: false,
+        message: 'must be email'
+      }
+    },
+    'model.password': {
+      presence: true,
+      length: {
+        minimum: 4
+      }
     }
   }
 });

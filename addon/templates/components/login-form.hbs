@@ -5,7 +5,7 @@
     type='email'
     id='login-email'}}
   <p class="help-block errors">
-    {{#each model.errors.identification as |error|}}
+    {{#each errors.model.identification as |error|}}
       <span>{{error}}<br></span>
     {{/each}}
   </p>
@@ -17,7 +17,7 @@
     type='password'
     id='login-password'}}
   <p class="help-block errors">
-    {{#each model.errors.password as |error|}}
+    {{#each errors.model.password as |error|}}
       <span>{{error}}<br></span>
     {{/each}}
   </p>
@@ -32,5 +32,6 @@
     <input id="remember-me" type="checkbox" name="remember_me" value=rememberMe checked>
     <span>{{rememberMeLabel}}</span>
   {{/if}}
-  <input {{action 'submit'}} disabled={{model.isntValid}} type="submit" class="btn btn-primary btn-raised btn-block" value={{btnLabel}}>
+  <input {{action 'submit'}} data-test-target="btn-login" disabled={{isntValid}} type="submit"
+    class="btn btn-primary btn-raised btn-block" value={{btnLabel}}>
 </div>
