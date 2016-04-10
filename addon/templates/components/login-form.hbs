@@ -1,26 +1,24 @@
-<div class='form-group label-floating is-empty'>
-  <label class='control-label' for='login-email'>Email</label>
+<div class={{formGroupClass}}>
+  <label class={{inputLabelClass}} for='login-email'>Email</label>
   {{input value=model.identification
-    class='form-control'
+    class=inputClass
+    pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
     type='email'
     id='login-email'}}
-  <p class="help-block errors">
-    {{#each errors.model.identification as |error|}}
-      <span>{{error}}<br></span>
-    {{/each}}
-  </p>
+  <span class="{{inputHelperClass}} errors">
+    {{errors.model.identification.firstObject}}
+  </span>
 </div>
-<div class='form-group label-floating is-empty'>
-  <label class='control-label' for='login-password'>Password</label>
+<div class={{formGroupClass}}>
+  <label class={{inputLabelClass}} for='login-password'>Password</label>
   {{input value=model.password
-    class='form-control'
+    class=inputClass
+    pattern=passwordPattern
     type='password'
     id='login-password'}}
-  <p class="help-block errors">
-    {{#each errors.model.password as |error|}}
-      <span>{{error}}<br></span>
-    {{/each}}
-  </p>
+  <span class="{{inputHelperClass}} errors">
+    {{errors.model.password.firstObject}}
+  </span>
 </div>
 <p class="errors">
   {{#each errors as |err|}}
@@ -32,9 +30,9 @@
 </p>
 <div class="form-actions">
   {{#if onRemember}}
-    <input id="remember-me" type="checkbox" name="remember_me" value=rememberMe checked>
+    <input id="remember-me" type="checkbox" name="remember_me" class={{inputRememberClass}} value=rememberMe checked>
     <span>{{rememberMeLabel}}</span>
   {{/if}}
   <input {{action 'submit'}} data-test-target="btn-login" disabled={{isntValid}} type="submit"
-    class="btn btn-primary btn-raised btn-block" value={{btnLabel}}>
+    class={{submitButtonClass}} value={{btnLabel}}>
 </div>

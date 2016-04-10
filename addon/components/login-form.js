@@ -9,6 +9,13 @@ export default Ember.Component.extend(EmberValidations, {
   classNames: ['login'],
   tagName: 'form',
 
+  formGroupClass: 'form-group label-floating is-empty',
+  inputLabelClass: "control-label",
+  inputClass: 'form-control',
+  inputHelperClass: 'help-block',
+  submitButtonClass: "btn btn-primary btn-raised btn-block",
+  passwordPattern: ".{4,}",
+
   rememberMeLabel: "Remember me",
   btnLabel: "login",
   errors: [],
