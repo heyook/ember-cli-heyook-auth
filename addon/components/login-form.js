@@ -39,11 +39,15 @@ export default Ember.Component.extend(EmberValidations, {
 
   actions: {
     submit: function() {
-      this.sendAction('onSubmit', this.get('model'), () => {
-        this.set('model', {
-          identification: "",
-          password: ""
-        });
+      this.sendAction('onSubmit', this.get('model'), (reason) => {
+        if (reason) {
+          this.set('errors', reason.error || reason.message || reason.errors);
+        } else {
+          this.set('model', {
+            identification: "",
+            password: ""
+          });
+        }
       });
     }
   },

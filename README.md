@@ -51,7 +51,6 @@ actions:
 ### create login template
 ```handlebar
 {{login-form
-  errors=errors
   onSubmit='submit'
   onRemember='updateRememberMe'}}
 ```

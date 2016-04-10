@@ -2,8 +2,7 @@ import Ember from 'ember';
 
 const {
   Mixin,
-  inject: { service },
-  observer
+  inject: { service }
 } = Ember;
 
 export default Mixin.create({
@@ -25,10 +24,7 @@ export default Mixin.create({
           callback();
           this.transitionTo(this.get('afterLoginRoute'));
         }, (reason) => {
-          if(reason) {
-            // TODO: better error parser
-            this.set("controller.errors", reason.error || reason.message || reason.errors);
-          }
+          callback(reason);
         });
       }
     }
