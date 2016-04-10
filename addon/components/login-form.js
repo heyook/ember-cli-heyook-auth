@@ -11,6 +11,7 @@ export default Ember.Component.extend(EmberValidations, {
 
   rememberMeLabel: "Remember me",
   btnLabel: "login",
+  errors: [],
 
   model: {
     identification: "",
@@ -41,7 +42,8 @@ export default Ember.Component.extend(EmberValidations, {
     submit: function() {
       this.sendAction('onSubmit', this.get('model'), (reason) => {
         if (reason) {
-          this.set('errors', reason.error || reason.message || reason.errors);
+          this.set('errors', reason.errors);
+          this.set('error_message', reason.message);
         } else {
           this.set('model', {
             identification: "",

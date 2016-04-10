@@ -26,6 +26,9 @@
   {{#each errors as |err|}}
     <span>{{err.title}}</span>
   {{/each}}
+  {{#if error_message}}
+    <span>{{error_message}}</span>
+  {{/if}}
 </p>
 <div class="form-actions">
   {{#if onRemember}}
