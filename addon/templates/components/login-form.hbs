@@ -1,22 +1,22 @@
 <div class={{formGroupClass}}>
   <label class={{inputLabelClass}} for='login-email'>Email</label>
   {{input value=model.identification
-    class=inputClass
+    class=(concat inputClass (if model.identification '' ' is-empty'))
     pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
     type='email'
     id='login-email'}}
-  <span class="{{inputHelperClass}} errors">
+  <span class="{{inputHelperClass}} errors {{if model.identification '' ' input-is-empty'}}">
     {{errors.model.identification.firstObject}}
   </span>
 </div>
 <div class={{formGroupClass}}>
   <label class={{inputLabelClass}} for='login-password'>Password</label>
   {{input value=model.password
-    class=inputClass
+    class=(concat inputClass (if model.password '' ' is-empty'))
     pattern=passwordPattern
     type='password'
     id='login-password'}}
-  <span class="{{inputHelperClass}} errors">
+  <span class="{{inputHelperClass}} errors {{if model.password '' ' input-is-empty'}}">
     {{errors.model.password.firstObject}}
   </span>
 </div>

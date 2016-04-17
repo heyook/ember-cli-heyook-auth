@@ -12,7 +12,7 @@ test('it renders form', function(assert) {
   assert.equal(this.$('form.login').length, 1);
 });
 
-test('it disables login button is credential is not valid', function(assert) {
+test('it disables login button if credential is empty', function(assert) {
   this.render(hbs`{{login-form}}`);
 
   Ember.run( () => {
@@ -22,6 +22,8 @@ test('it disables login button is credential is not valid', function(assert) {
 
   Ember.run( () => {
     assert.equal(this.$('input[data-test-target=btn-login]').attr('disabled'), 'disabled');
+    assert.ok(this.$("input#login-email").hasClass('is-empty'));
+    assert.ok(this.$("input#login-password").hasClass('is-empty'));
   });
 });
 
