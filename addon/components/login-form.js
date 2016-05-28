@@ -49,7 +49,7 @@ export default Ember.Component.extend(EmberValidations, {
     submit: function() {
       this.sendAction('onSubmit', this.get('model'), (reason) => {
         if (reason) {
-          this.set('errors', reason.errors);
+          // returns ex: {message: "invalid email password combination"} 
           this.set('error_message', reason.message);
         } else {
           this.set('model', {
