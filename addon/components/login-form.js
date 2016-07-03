@@ -31,15 +31,6 @@ export default Ember.Component.extend({
   isntValid: alias('changeset.isInvalid'),
   disable: or('isntValid', 'pending'),
 
-  init() {
-    this._super(...arguments);
-
-    if(this.changeset) {
-      this.changeset.validate("identification");
-      this.changeset.validate("password");
-    }
-  },
-
   actions: {
     submit: function() {
       const promise = this.attrs.onSubmit(get(this, 'changeset'));
