@@ -7,7 +7,7 @@
     id='login-email'
     update=(action (mut changeset.identification))}}
   {{#if changeset.error.identification}}
-    <span class="{{inputHelperClass}} errors">
+    <span class="{{inputHelperClass}} helper-identification">
       {{changeset.error.identification.validation}}
     </span>
   {{/if}}
@@ -22,7 +22,7 @@
     update=(action (mut changeset.password))}}
 
   {{#if changeset.error.password}}
-    <span class="{{inputHelperClass}} errors">
+    <span class="{{inputHelperClass}} helper-password">
       {{changeset.error.password.validation}}
     </span>
   {{/if}}
