@@ -6,27 +6,35 @@ const {
 } = Ember;
 
 export default Mixin.create({
-  rememberMe: true,
 
   afterLoginRoute: "/",
 
   session: service('session'),
 
+  model() {
+    return {
+      identification: "",
+      password: ""
+    };
+  },
+
   actions: {
 
-    updateRememberMe(shouldRemember) {
-      this.get('session.store').cookieExpirationTime = shouldRemember ? 14 * 24 * 60 * 60 : null;
-    },
-
-    submit(data, callback) {
-      if (!this.get('session.isAuthenticated')) {
-        this.get('session').authenticate("authenticator:devise", data).then( () => {
-          callback();
-          this.transitionTo(this.get('afterLoginRoute'));
-        }, (reason) => {
-          callback(reason);
-        });
-      }
+    submit(data) {
+      const credential = Ember.getProperties(data, "identification", "password");
+      return new Ember.RSVP.Promise( (resolve, reject) => {
+        if (!this.get('session.isAuthenticated')) {
+          this.get('session').authenticate("authenticator:devise", credential).then( () => {
+            this.transitionTo(this.get('afterLoginRoute'));
+            resolve(true);
+          }, (reason) => {
+            Ember.Logger.debug(reason);
+            reject(reason);
+          });
+        } else {
+          resolve(true);
+        }
+      });
     }
   }
 });

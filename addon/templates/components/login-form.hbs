@@ -1,24 +1,31 @@
 <div class={{formGroupClass}}>
   <label class={{inputLabelClass}} for='login-email'>Email</label>
-  {{input value=model.identification
-    class=(concat inputClass (if model.identification '' ' is-empty'))
+  {{one-way-input changeset.identification
+    class=inputClass
     pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
     type='email'
-    id='login-email'}}
-  <span class="{{inputHelperClass}} errors {{if model.identification '' ' input-is-empty'}}">
-    {{errors.model.identification.firstObject}}
-  </span>
+    id='login-email'
+    update=(action (mut changeset.identification))}}
+  {{#if changeset.error.identification}}
+    <span class="{{inputHelperClass}} errors">
+      {{changeset.error.identification.validation}}
+    </span>
+  {{/if}}
 </div>
 <div class={{formGroupClass}}>
   <label class={{inputLabelClass}} for='login-password'>Password</label>
-  {{input value=model.password
-    class=(concat inputClass (if model.password '' ' is-empty'))
-    pattern=passwordPattern
+
+  {{one-way-input changeset.password
+    class=inputClass
     type='password'
-    id='login-password'}}
-  <span class="{{inputHelperClass}} errors {{if model.password '' ' input-is-empty'}}">
-    {{errors.model.password.firstObject}}
-  </span>
+    id='login-password'
+    update=(action (mut changeset.password))}}
+
+  {{#if changeset.error.password}}
+    <span class="{{inputHelperClass}} errors">
+      {{changeset.error.password.validation}}
+    </span>
+  {{/if}}
 </div>
 <p class="errors">
   {{#each errors as |err|}}
@@ -29,10 +36,6 @@
   {{/if}}
 </p>
 <div class="form-actions">
-  {{#if onRemember}}
-    <input id="remember-me" type="checkbox" name="remember_me" class={{inputRememberClass}} value=rememberMe checked>
-    <span>{{rememberMeLabel}}</span>
-  {{/if}}
-  <input {{action 'submit'}} data-test-target="btn-login" disabled={{isntValid}} type="submit"
+  <input {{action 'submit'}} data-test-target="btn-login" disabled={{disable}} type="submit"
     class={{submitButtonClass}} value={{btnLabel}}>
 </div>

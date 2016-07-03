@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
+import loginValidations from 'ember-cli-heyook-auth/validations/login';
 
 moduleForComponent('login-form', 'Integration | Component | Login Form', {
   integration: true
@@ -13,29 +14,42 @@ test('it renders form', function(assert) {
 });
 
 test('it disables login button if credential is empty', function(assert) {
-  this.render(hbs`{{login-form}}`);
-
-  Ember.run( () => {
-    this.$("form input#login-email").val('').trigger("change");
-    this.$("form input#login-password").val("").trigger("change");
+  this.set('credential', {
+    identification: '',
+    password: ""
   });
 
-  Ember.run( () => {
-    assert.equal(this.$('input[data-test-target=btn-login]').attr('disabled'), 'disabled');
-    assert.ok(this.$("input#login-email").hasClass('is-empty'));
-    assert.ok(this.$("input#login-password").hasClass('is-empty'));
-  });
+  this.set('loginValidations', loginValidations);
+
+  this.render(hbs`{{login-form
+    changeset=(changeset credential loginValidations)
+  }}`);
+
+  assert.equal(this.$('input[data-test-target=btn-login]').attr('disabled'), 'disabled');
 });
 
 test('it triggers submit when submit button is clicked', function(assert) {
   assert.expect(4);
 
+  this.set('credential', {
+    identification: '',
+    password: ""
+  });
+
+  this.set('loginValidations', loginValidations);
+
   this.set('submit', function(m){
     assert.ok(true, "it triggers submit to targetObject");
-    assert.equal(m.identification, "123@abc.com");
-    assert.equal(m.password, "11111111");
+    assert.equal(m.get('identification'), "123@abc.com");
+    assert.equal(m.get('password'), "11111111");
+
+    return new Ember.RSVP.Promise( (resolve/*, reject*/) => {
+      resolve(true);
+    });
   });
-  this.render(hbs`{{login-form onSubmit=submit}}`);
+  this.render(hbs`{{login-form
+    changeset=(changeset credential loginValidations)
+    onSubmit=(action submit)}}`);
 
   Ember.run( () => {
     this.$("form input#login-email").val('123@abc.com').trigger("change");
@@ -48,17 +62,4 @@ test('it triggers submit when submit button is clicked', function(assert) {
     this.$('input[data-test-target=btn-login]').click();
   });
 
-});
-
-test('it triggers onRemember when remember me button is clicked', function(assert) {
-  assert.expect(3);
-
-  this.set('updateRememberMe', function(m){
-    assert.ok(true, "it triggers remember me to targetObject");
-    assert.equal(m, false);
-  });
-  this.render(hbs`{{login-form onRemember=updateRememberMe}}`);
-
-  assert.equal(this.$('form input#remember-me').attr('checked'), 'checked');
-  this.$('form input#remember-me').click();
 });

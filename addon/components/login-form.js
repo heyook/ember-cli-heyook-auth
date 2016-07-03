@@ -1,22 +1,23 @@
 import Ember from 'ember';
-import EmberValidations from 'ember-validations';
 import layout from '../templates/components/login-form';
 
-const { computed: { not }  } = Ember;
+const {
+  get,
+  set,
+  computed: { alias, or, equal }
+} = Ember;
 
-export default Ember.Component.extend(EmberValidations, {
+export default Ember.Component.extend({
   layout: layout,
   classNames: ['login'],
   tagName: 'form',
 
-  formGroupClass: 'form-group label-floating is-empty',
+  formGroupClass: 'form-group',
   inputLabelClass: "control-label",
   inputClass: 'form-control',
   inputHelperClass: 'help-block',
   submitButtonClass: "btn btn-primary btn-raised btn-block",
-  passwordPattern: ".{4,}",
 
-  rememberMeLabel: "Remember me",
   btnLabel: "login",
   errors: [],
 
@@ -25,59 +26,35 @@ export default Ember.Component.extend(EmberValidations, {
     password: ""
   },
 
-  isntValid: not('isValid'),
+  textState: 'default',
+  pending: equal('textState', 'pending'),
+  isntValid: alias('changeset.isInvalid'),
+  disable: or('isntValid', 'pending'),
 
-  clearProperties: function() {
-    this.eachAttribute( (propName) => {
-      this.set(propName, undefined);
-    });
-  },
+  init() {
+    this._super(...arguments);
 
-  didInsertElement: function() {
-    this._super();
-    Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
-  },
-
-  afterRenderEvent: function() {
-    var _this = this;
-    this.$('#remember-me').change(function() {
-      _this.sendAction('onRemember', this.checked);
-    });
+    if(this.changeset) {
+      this.changeset.validate("identification");
+      this.changeset.validate("password");
+    }
   },
 
   actions: {
     submit: function() {
-      this.sendAction('onSubmit', this.get('model'), (reason) => {
-        if (reason) {
-          // returns ex: {message: "invalid email password combination"} 
-          this.set('error_message', reason.message);
-        } else {
-          this.set('model', {
-            identification: "",
-            password: ""
-          });
+      const promise = this.attrs.onSubmit(get(this, 'changeset'));
+
+      set(this, 'textState', 'pending');
+      promise.then(() => {
+        if (!this.isDestroyed) {
+          set(this, 'textState', "fulfilled");
+        }
+      }, (reason) => {
+        this.set('error_message', reason.message);
+        if (!this.isDestroyed) {
+          set(this, 'textState', 'rejected');
         }
       });
-    }
-  },
-
-  validations: {
-    'model.identification': {
-      presence: true,
-      length: {
-        minimum: 3
-      },
-      format: {
-        "with": /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-        allowBlank: false,
-        message: 'must be email'
-      }
-    },
-    'model.password': {
-      presence: true,
-      length: {
-        minimum: 4
-      }
     }
   }
 });

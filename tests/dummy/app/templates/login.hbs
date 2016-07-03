@@ -1,5 +1,4 @@
 {{login-form
-  onSubmit='submit'
-  btnLabel='LOGIN'
-  rememberMeLabel='REM ME'
-  onRemember='updateRememberMe'}}
+  changeset=(changeset model loginValidations)
+  onSubmit=(route-action 'submit')
+  btnLabel='LOGIN'}}
