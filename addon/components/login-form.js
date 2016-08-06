@@ -49,6 +49,7 @@ export default Ember.Component.extend({
         }
       }, (reason) => {
         this.set('error_message', reason.message);
+        this.set('errors', reason.errors);
         if (!this.isDestroyed) {
           set(this, 'textState', 'rejected');
         }
