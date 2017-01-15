@@ -11,7 +11,7 @@ module('Integration | Acceptance | Login', {
     var authUser = {
       id: 1,
       email: "idea@heyook.com",
-      auth_token: "abc"
+      token: "abc"
     };
 
     var user = {
@@ -48,11 +48,11 @@ test('signin', function(assert) {
 
   andThen(function() {
     assert.equal(find('form').length, 1, 'The page shows sign in form');
-    assert.equal(find('form input#email').length, 1, 'The form contains email input');
-    assert.equal(find('form input#password').length, 1, 'The form contains password input');
+    assert.equal(find('form input#login-email').length, 1, 'The form contains email input');
+    assert.equal(find('form input#login-password').length, 1, 'The form contains password input');
 
-    fillIn('input#email', "idea@lida.com");
-    fillIn('input#password', "secretpwd");
+    fillIn('input#login-email', "idea@lida.com");
+    fillIn('input#login-password', "secretpwd");
     click('input.btn');
   });
 

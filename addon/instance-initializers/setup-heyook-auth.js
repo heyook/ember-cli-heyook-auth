@@ -6,6 +6,7 @@ export function initialize(instance) {
   let heyookAuthConfig = config.HeyookAuth || {};
   let requestHeaders = heyookAuthConfig.requestHeaders;
   let serverTokenEndpoint = heyookAuthConfig.serverTokenEndpoint;
+  let resourceName = heyookAuthConfig.resourceName;
 
   // Set HeyookAuth service object using environment config.
   let heyookAuthService = instance.lookup('service:heyookAuth');
@@ -14,6 +15,9 @@ export function initialize(instance) {
   }
   if(serverTokenEndpoint){
     heyookAuthService.set('serverTokenEndpoint', serverTokenEndpoint);
+  }
+  if(resourceName) {
+    heyookAuthService.set('resourceName', resourceName);
   }
 }
 

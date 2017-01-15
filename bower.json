@@ -12,12 +12,9 @@
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.3.0",
     "qunit": "~1.20.0",
-    "ember-simple-auth": "0.8.0",
     "pretender": "~0.10.1"
   },
   "resolutions": {
-    "qunit-notifications": "~0.1.0",
-    "FakeXMLHttpRequest": "~1.2.1",
     "ember": "^2.0.0"
   }
 }

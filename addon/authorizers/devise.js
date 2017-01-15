@@ -33,16 +33,14 @@ export default Devise.extend({
   */
   authorize(data, block) {
     const resourceName = this.get('heyookAuth').resourceName || this.get('resourceName');
-    const userData = data[resourceName];
+    const userData = data[resourceName] ? data[resourceName] : data;
 
     if (!isEmpty(userData)) {
       const tokenAttributeName = this.get('tokenAttributeName');
       const userToken          = userData[tokenAttributeName];
-      const userIdentification = userData.id;
 
-      if (!isEmpty(userToken) && !isEmpty(userIdentification)) {
-        const authData = `${tokenAttributeName}=${userIdentification}.${userToken}`;
-        block('Authorization', `Token ${authData}`);
+      if (!isEmpty(userToken)) {
+        block('Authorization', `Bearer ${userToken}`);
       }
     }
   }

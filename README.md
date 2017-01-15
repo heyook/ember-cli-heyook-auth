@@ -7,7 +7,6 @@ var ENV = {
 
   HeyookAuth: {
     resourceName: "user",
-    currentResourceName: 'currentUser',
     serverTokenEndpoint: 'api/users/sign_in'
   }
 
@@ -21,7 +20,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   email: DS.attr('string'),
-  auth_token: DS.attr('string')
+  token: DS.attr('string')
 });
 ```
 
@@ -29,7 +28,7 @@ export default DS.Model.extend({
 ```javascript
 import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-import LoginRouteMixin from 'ember-cli-heyook-auth/mixins/login-route-mixin';
+import LoginRouteMixin from 'ember-cli-heyook-auth/mixins/login-route';
 
 export default Ember.Route.extend(ApplicationRouteMixin, LoginRouteMixin);
 ```
@@ -50,19 +49,8 @@ actions:
 ### create login template
 ```handlebar
 {{login-form
-  model=model
   onSubmit='submit'
   onRemember='updateRememberMe'}}
-```
-
-### access current user in controller
-```javascript
-import Ember from 'ember';
-
-ApplicationController = Ember.Controller.extend({
-  currentAdmin:    Em.computed.alias "session.currentAdmin"
-});
-export default ApplicationController;
 ```
 
 ### create simple auth authenticated route
